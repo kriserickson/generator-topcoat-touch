@@ -1,0 +1,8 @@
+language: node_js
+node_js:
+  - '0.8'
+  - '0.10'
+before_install:
+  - currentfolder=${PWD##*/}
+  - if [ "$currentfolder" != 'generator-topcoat-touch' ]; then cd .. && eval "mv $currentfolder generator-topcoat-touch" && cd generator-topcoat-touch; fi
+

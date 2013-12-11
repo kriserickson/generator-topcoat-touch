@@ -1,0 +1,42 @@
+{
+  "name": "generator-topcoat-touch",
+  "version": "0.0.1",
+  "description": "A generator for Yeoman",
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "homepage": "https://github.com/kriserickson/generator-topcoat-touch",
+  "bugs": "https://github.com/kriserickson/generator-topcoat-touch/issues",
+  "author": {
+    "name": "Kris Erickson",
+    "email": "",
+    "url": "https://github.com/kriserickson"
+  },
+  "main": "app/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kriserickson/generator-topcoat-touch.git"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "yeoman-generator": "~0.14.0",
+    "underscore.string": "~2.3.3"
+  },
+  "devDependencies": {
+    "mocha": "~1.14.0"
+  },
+  "peerDependencies": {
+    "yo": ">=1.0.0"
+  },
+  "engines": {
+    "node": ">=0.8.0",
+    "npm": ">=1.2.10"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ]
+}
