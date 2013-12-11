@@ -29,17 +29,27 @@ TopcoatTouchGenerator.prototype.askFor = function askFor() {
             message: 'Topcoat Touch Project Name?'
         },
         {
+            type: 'list',
+            name: 'lightDark',
+            message: 'Light or dark theme?',
+            choices: ['light', 'dark'],
+            default: 'dark'
+        },
+        {
             type: 'confirm',
             name: 'useCordova',
             message: 'Would you like to enable Cordova for this project?',
             default: true
         },
         {
-            type: 'list',
-            name: 'lightDark',
-            message: 'Light or dark theme?',
-            choices: ['light', 'dark'],
-            default: 'dark'
+            when: function(response) {
+                return response.useCordova;
+            },
+            type: 'checkbox',
+            name: 'platforms',
+            message: 'Cordova platforms',
+            choices: [{name: 'ios', checked: true}, {name: 'android', checked: true}, {name: 'wp7'},
+                {name: 'wp8'}, {name: 'windows8'}, {name: 'amazon-fireos'}, {name: 'firefoxos'}, {name: 'blackberry10'}]
         }
     ];
 
@@ -48,6 +58,9 @@ TopcoatTouchGenerator.prototype.askFor = function askFor() {
         this.projectNameSlug = _s.slugify(this.projectName);
         this.useCordova = props.useCordova;
         this.lightDark = props.lightDark;
+        this.platforms = props.platforms;
+
+
 
         cb();
     }.bind(this));
@@ -55,10 +68,15 @@ TopcoatTouchGenerator.prototype.askFor = function askFor() {
 
 TopcoatTouchGenerator.prototype.app = function app() {
     this.mkdir('app');
-    this.copy('_bower.json', 'app/bower.json');
-    this.copy('_index.html', 'app/index.html');
-    this.copy('_Gruntfile.js', 'Gruntfile.js');
-    this.copy('_package.json', 'package.json');
+    this.template('_index.html', 'app/index.html');
+    this.mkdir('app/js');
+    this.copy('_app.js', 'app/js/app.js');
+    this.mkdir('app/css');
+    this.copy('_app.css', 'app/css/app.css');
+    this.template('_bower.json', 'bower.json');
+    this.copy('bowerrc', '.bowerrc');
+    this.template('_Gruntfile.js', 'Gruntfile.js');
+    this.template('_package.json', 'package.json');
 };
 
 TopcoatTouchGenerator.prototype.projectfiles = function projectfiles() {

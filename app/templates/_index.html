@@ -3,12 +3,16 @@
 <head>
     <title><%= projectName %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"> 
-    <link href="css/topcoat-mobile-light.css" rel="stylesheet">
-    <link href="css/topcoat-touch.css" rel="stylesheet"> 
-    <script src="js/jquery-2.0.3.js"></script>
-    <script src="js/topcoat-touch.js"></script>
-    <script src="js/iscroll.js"></script>
-    <script src="js/fastclick.js"></script>
+<% if (lightDark == 'light') { %>
+    <link href="libs/topcoat-touch/css/topcoat-mobile-light.css" rel="stylesheet">
+<% } else { %>
+    <link href="libs/topcoat-touch/css/topcoat-mobile-dark.css" rel="stylesheet">
+<% } %>
+    <link href="libs/topcoat-touch/css/topcoat-touch.css" rel="stylesheet">
+    <script src="libs/topcoat-touch/js/jquery-2.0.3.js"></script>
+    <script src="libs/topcoat-touch/js/topcoat-touch.js"></script>
+    <script src="libs/topcoat-touch/js/iscroll.js"></script>
+    <script src="libs/topcoat-touch/js/fastclick.js"></script>
     <script src="js/app.js"></script>
 </head>
 <body>

@@ -2,7 +2,7 @@ module.exports = function (grunt) {
     'use strict';
 
     grunt.loadNpmTasks('grunt-http-server');
-<% if (useCordova) {
+<% if (useCordova) { %>
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-clean');
@@ -13,21 +13,20 @@ module.exports = function (grunt) {
 
     var jsFiles = [''],
         cssFiles = ['' ];
-} %>
+<% } %>
 
     // Project configuration.
     grunt.initConfig({
         'http-server': {
             port: 3000,
-            root: './app/',
-
-        },
-
-<% if (useCordova) {
+            root: './app/'
+        }
+<% if (useCordova) { %>
+        ,
         meta:{
             version:'2.0.0',
             projectName: '<%= projectNameSlug %>',
-            banner:'/*! <%= meta.projectName %> - v<%= meta.version %> - <%= grunt.template.today("yyyy-mm-dd") %>*/\n'
+            banner:'/*! <%%= meta.projectName %> - v<%%= meta.version %> - <%%= grunt.template.today("yyyy-mm-dd") %>*/\n'
         },
         clean: {
             dist: ['dist/*'],
@@ -96,20 +95,20 @@ module.exports = function (grunt) {
             build: {
                 options: {
                     command: 'build',
-                    platforms: ['<%= platforms %>']
+                    platforms: [<%= '"' + platforms.join('","') + '"'  %>]
                 }
             }
         }
-} %>
+<% } %>
     });
 
-<% if (useCordova) {
+<% if (useCordova) { %>
     grunt.registerTask('debugBuild', ['debugCordova', 'cordovacli:build']);
     grunt.registerTask('build', ['cordova', 'cordovacli:build']);
     grunt.registerTask('cordova', ['clean:dist', 'clean:cordova', 'concat', 'uglify', 'cssmin', 'transform_html', 'copy:cordova']);
     grunt.registerTask('debugCordova', ['clean:dist', 'clean:cordova', 'copy:debugCordova']);
     grunt.registerTask('cordovaDebug', ['debugCordova']);
-} %>
+<% } %>
 
     // Default task.
     grunt.registerTask('default', ['http-server']);
