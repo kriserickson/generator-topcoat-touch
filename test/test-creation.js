@@ -20,16 +20,29 @@ describe('topcoat-touch generator', function () {
     });
 
     it('creates expected files', function (done) {
+
         var expected = [
             // add files you expect to exist here.
-            '.jshintrc',
-            '.editorconfig'
+            '.bowerrc',
+            'package.json',
+            'bower.json',
+            'Gruntfile.js',
+            'app/index.html',
+            'app/js/app.js',
+            'app/css/app.css'
         ];
 
+
         helpers.mockPrompt(this.app, {
-            'someOption': true
+            projectName: 'Test App',
+            lightDark: 'light',
+            kitchenSink: false,
+            useCordova: false
         });
+
         this.app.options['skip-install'] = true;
+
+
         this.app.run({}, function () {
             helpers.assertFiles(expected);
             done();
