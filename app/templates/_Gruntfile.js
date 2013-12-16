@@ -11,15 +11,15 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-transform-html');
     grunt.loadNpmTasks('grunt-cordovacli');
 
-    var jsFiles = [''],
-        cssFiles = ['' ];
 <% } %>
 
     // Project configuration.
     grunt.initConfig({
         'http-server': {
-            port: 3000,
-            root: './app/'
+            dev : {
+                port: 3000,
+                root: './app/'
+            }
         }
 <% if (useCordova) { %>
         ,
@@ -30,16 +30,18 @@ module.exports = function (grunt) {
         },
         clean: {
             dist: ['dist/*'],
-            cordova: ['cordova/www/index.html', 'cordova/www/img/*', 'cordova/www/css/**', 'cordova/www/font/**', 'cordova/www/js/*', 'cordova/www/libs/*' ]
+            cordova: ['cordova/www/index.html', 'cordova/www/img/**', 'cordova/www/css/**', 'cordova/www/font/**',
+                'cordova/www/js/**', 'cordova/www/libs/js/**', 'cordova/www/libs/css/**', 'cordova/www/libs/font/**',
+                'cordova/www/libs/img/**', 'cordova/www/libs/**' ]
 
         },
         concat:{
             js:{
-                src:jsFiles,
+                src: grunt.file.expand(['app/libs/topcoat-touch/js/*.js', 'app/js/*.js']),
                 dest:'dist/<%= projectNameSlug %>.combined.js'
             },
             css:{
-                src:cssFiles,
+                src: grunt.file.expand(['app/libs/topcoat-touch/css/*.css', 'app/css/*.css']),
                 dest:'dist/<%= projectNameSlug %>.css'
             }
         },
@@ -52,7 +54,7 @@ module.exports = function (grunt) {
         cssmin:{
             compress:{
                 files:{
-                    'dist/neomobile.min.css':['<banner:meta.banner>', 'dist/<%= projectNameSlug %>.css']
+                    'dist/<%= projectNameSlug %>.min.css':['<banner:meta.banner>', 'dist/<%= projectNameSlug %>.css']
                 }
             }
         },
@@ -69,33 +71,38 @@ module.exports = function (grunt) {
                     { dest: 'cordova/www/', cwd: 'dist', expand: true, src: 'index.html'},
                     { dest: 'cordova/www/css/', cwd: 'dist', expand: true, src: '<%= projectNameSlug %>.min.css'},
                     { dest: 'cordova/www/js/', cwd: 'dist', expand: true, src: '<%= projectNameSlug %>.min.js'},
-                    { dest: 'cordova/www/', cwd: 'app', expand: true, src: ['img/**', 'font/**']}
+                    { dest: 'cordova/www/', cwd: 'app', expand: true, src: ['img/**']},
+                    { dest: 'cordova/www/', cwd: 'app/libs/topcoat-touch', expand: true, src: ['img/**', 'font/**']}
+
                 ]
             },
             debugCordova: {
                 files: [
                     { dest: 'cordova/www/', cwd: 'app/', expand: true,
-                        src: ['index.html', 'css/*.css', 'js/*.js', 'img/**', 'libs/*', 'fonts/**']}
+                        src: ['index.html', 'css/*.css', 'js/*.js', 'img/**', 'libs/topcoat-touch/js/**', 'libs/topcoat-touch/css/**',
+                            'libs/topcoat-touch/img/**', 'libs/topcoat-touch/font/**']}
                 ]
             }
         },
         cordovacli: {
             options: {
-                path: 'cordova'
+                path: 'cordova',
+                platforms: [<%= '"' + platforms.join('","') + '"'  %>]
             },
-            cordova: {
+            create: {
                 options: {
-                    command: ['build'],
-                    platforms: ['ios','android'],
-                    path: 'cordova',
-                    id: 'com.storefront.<%= projectNameSlug %>',
-                    name: '<%= projectName %>'
+                    command: 'create'
+                }
+            },
+            prepare: {
+                options: {
+                    command: 'prepare'
                 }
             },
             build: {
                 options: {
                     command: 'build',
-                    platforms: [<%= '"' + platforms.join('","') + '"'  %>]
+
                 }
             }
         }
@@ -103,14 +110,17 @@ module.exports = function (grunt) {
     });
 
 <% if (useCordova) { %>
-    grunt.registerTask('debugBuild', ['debugCordova', 'cordovacli:build']);
+    grunt.registerTask('debug-build', ['debugCordova', 'cordovacli:build']);
     grunt.registerTask('build', ['cordova', 'cordovacli:build']);
+    grunt.registerTask('prepare', ['cordova', 'cordovacli:prepare']);
+    grunt.registerTask('debug-prepare', ['cordova', 'cordovacli:prepare']);
     grunt.registerTask('cordova', ['clean:dist', 'clean:cordova', 'concat', 'uglify', 'cssmin', 'transform_html', 'copy:cordova']);
-    grunt.registerTask('debugCordova', ['clean:dist', 'clean:cordova', 'copy:debugCordova']);
-    grunt.registerTask('cordovaDebug', ['debugCordova']);
+    grunt.registerTask('debug-cordova', ['clean:dist', 'clean:cordova', 'copy:debugCordova']);
+    grunt.registerTask('cordova-debug', ['debugCordova']);
 <% } %>
 
     // Default task.
     grunt.registerTask('default', ['http-server']);
+
 
 };

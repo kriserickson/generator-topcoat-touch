@@ -37,6 +37,12 @@ TopcoatTouchGenerator.prototype.askFor = function askFor() {
         },
         {
             type: 'confirm',
+            name: 'kitchenSink',
+            message: 'Include the KitchenSink demo?',
+            default: false
+        },
+        {
+            type: 'confirm',
             name: 'useCordova',
             message: 'Would you like to enable Cordova for this project?',
             default: true
@@ -48,7 +54,7 @@ TopcoatTouchGenerator.prototype.askFor = function askFor() {
             type: 'checkbox',
             name: 'platforms',
             message: 'Cordova platforms',
-            choices: [{name: 'ios', checked: true}, {name: 'android', checked: true}, {name: 'wp7'},
+            choices: [{name: 'ios', checked: true}, {name: 'android', checked: true},
                 {name: 'wp8'}, {name: 'windows8'}, {name: 'amazon-fireos'}, {name: 'firefoxos'}, {name: 'blackberry10'}]
         }
     ];
@@ -59,6 +65,7 @@ TopcoatTouchGenerator.prototype.askFor = function askFor() {
         this.useCordova = props.useCordova;
         this.lightDark = props.lightDark;
         this.platforms = props.platforms;
+        this.kitchenSink = props.kitchenSink;
 
 
 
@@ -77,6 +84,9 @@ TopcoatTouchGenerator.prototype.app = function app() {
     this.copy('bowerrc', '.bowerrc');
     this.template('_Gruntfile.js', 'Gruntfile.js');
     this.template('_package.json', 'package.json');
+    if (this.useCordova) {
+        this.copy('_cordova.js', 'app/cordova.js');
+    }
 };
 
 TopcoatTouchGenerator.prototype.projectfiles = function projectfiles() {
