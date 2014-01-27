@@ -16,12 +16,22 @@
 
 <% if (useCordova) { %>
     <script src="cordova.js"></script>
-<% } %>
+<% } if (jqueryZepto == 'jquery') { %>
     <script src="libs/topcoat-touch/js/jquery-2.0.3.js"></script>
+<% } else if  (jqueryZepto == 'zepto') { %>
+    <script src="libs/topcoat-touch/js/zepto.js"></script>
+<% } %>
     <script src="libs/topcoat-touch/js/topcoat-touch.js"></script>
+<% if (includeIScroll) { %>
     <script src="libs/topcoat-touch/js/iscroll.js"></script>
+<% } %>
+<% if (includeHammer) { %>
+    <script src="libs/topcoat-touch/js/hammer.js"></script>
+<% } %>
+<% if (includeFastClick) { %>
     <script src="libs/topcoat-touch/js/fastclick.js"></script>
-    <script src="js/app.js"></script>
+<% } %>
+
 <% if (useCordova) { %>
     <!-- @@DEVELOPMENT@@ -->
     <!-- @@PRODUCTION@@
@@ -32,12 +42,20 @@
 <% } %>
 </head>
 <body>
-<% if (kitchenSink) { %>
+<script src="js/app.js"></script>
+<% if (kitchenSink && !mvc) { %>
     <div id="home">
-        <div class="topcoat-navigation-bar">
-            <div class="topcoat-navigation-bar__item center full">
+    <div class="topcoat-navigation-bar"> <!-- Navigation bar -->
+        <div class="topcoat-navigation-bar__item left quarter">
+        </div>
+        <div class="topcoat-navigation-bar__item center half">
                 <h1 class="topcoat-navigation-bar__title">Topcoat Touch</h1>
             </div>
+        <div class="topcoat-navigation-bar__item right quarter">
+            <a class="topcoat-icon-button--quiet menu-button" href="#">
+                <span class="topcoat-icon topcoat-icon--menu-stack"></span>
+            </a>
+        </div>
         </div>
         <div class="content scrollable"> <!-- containers with the class scrollable are automatically hooked into iscroll -->
             <div class="topcoat-list__container">
@@ -161,7 +179,7 @@
 
                 <h3>Small Call To Action Button</h3>
                 <button class="topcoat-button--cta button-small">Button</button>
-                <button class="topcoat-button--cta button--small" disabled>Button</button>
+                <button class="topcoat-button--cta button-small" disabled>Button</button>
             </form>
         </div>
     </div>
@@ -358,6 +376,7 @@
         <div class="content">
             <div class="loadingDialogDiv">
                 <button id="showLoading" class="topcoat-button--cta">Show Loading</button>
+            <!-- See app.js to see how these work -->
                 <button id="showDialog" class="topcoat-button--cta">Show Dialog</button>
             </div>
         </div>
@@ -365,7 +384,7 @@
     <div id="galleryExample">
         <div class="topcoat-navigation-bar">
             <div class="topcoat-navigation-bar__item left quarter">
-                <a class="topcoat-icon-button--quiet back-button" href="#" style="display: inline-block;">
+            <a class="topcoat-icon-button--quiet back-button" href="#">
                     <span class="topcoat-icon topcoat-icon--back"></span>
                 </a>
             </div>
@@ -380,11 +399,13 @@
                 </ul>
             </div>
         </div>
-        <div class="topcoat-bottom-bar">
+    <div class="topcoat-bottom-bar"> <!-- A bottom bar, note this screen is resized automatically
+                                    and bottom-bar is absolute positioned at the bottom of the page -->
             <div class="topcoat-bottom-bar-item" style="width: 70%">
+            <!-- To see how dropdowns are created go to https://github.com/kriserickson/topcoat-touch/wiki/Topcoat-additions#drop-down -->
                 <div class="form-dropdown" id="gallery-picker">
                     <a href="#" class="toggle-dropdown">Gallery Type</a>
-                    <ul id="gallery-type" class="dropdown direction-up">
+                <ul id="gallery-type" class="dropdown">
                         <li class="dropdown-item" data-id="kittens">
                             <div class="menu-item">Kittens</div>
                         </li>
@@ -411,7 +432,7 @@
     <div id="carouselExample">
         <div class="topcoat-navigation-bar">
             <div class="topcoat-navigation-bar__item left quarter">
-                <a class="topcoat-icon-button--quiet back-button" href="#" style="display: inline-block;">
+            <a class="topcoat-icon-button--quiet back-button" href="#">
                     <span class="topcoat-icon topcoat-icon--back"></span>
                 </a>
             </div>
@@ -419,7 +440,7 @@
                 <h1 class="topcoat-navigation-bar__title">Photos</h1>
             </div>
         </div>
-        <!-- Carousel Example taken from: http://lab.cubiq.org/iscroll5/demos/carousel/ -->
+    <!-- Carousel Example taken from: http://lab.cubiq.org/iscroll5/demos/carousel/, see app.js for how to do this... -->
         <div id="carouselViewport">
             <div id="carouselWrapper">
                 <div class="scroller">
@@ -443,7 +464,57 @@
             <div id="carouselDotty"></div>
         </div>
     </div>
-<% } else { %>
+	<div data-role="dialog" id="help">
+	    <div class="topcoat-touch-dialog">
+	        <div class="topcoat-touch-header">
+	            <h1>Help</h1>
+	        </div>
+	
+	        <div class="topcoat-touch-dialog-content">
+	            <div>
+	                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+	            </div>
+	
+	            <div class="topcoat-touch-grid  buttons">
+	                <div class="half">
+	                    <button class="topcoat-button">Cancel</button>
+	                </div>
+	                <div class="half">
+	                    <button class="topcoat-button--cta">OK</button>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	<div data-role="dialog" id="about">
+	    <div class="topcoat-touch-dialog">
+	        <div class="topcoat-touch-header">
+	            <h1>About</h1>
+	        </div>
+	
+	        <div class="topcoat-touch-dialog-content">
+	            <div>
+	                <h2>Topcoat Touch</h2>
+	
+	                <p>A very simple mobile framework based on the Topcoat Framework. Inspired by the jQT framework. Can be
+	                    used either with a single html document with multiple pages, or using a collection of controllers and templates.</p>
+	
+	                <p>Topcoat Touch uses jQuery (or Zepto), fastclick, iscroll, hammerjs, and lodash</p>
+	
+	            </div>
+	
+	            <div class="topcoat-touch-grid  buttons">
+	                <div class="half">
+	                    <button class="topcoat-button">Cancel</button>
+	                </div>
+	                <div class="half">
+	                    <button class="topcoat-button--cta">OK</button>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+<% } else if (!mvc) { %>
     <div id="home">
         <div class="topcoat-navigation-bar">
             <div class="topcoat-navigation-bar__item center full">

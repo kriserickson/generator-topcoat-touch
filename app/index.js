@@ -29,19 +29,6 @@ TopcoatTouchGenerator.prototype.askFor = function askFor() {
             message: 'Topcoat Touch Project Name?'
         },
         {
-            type: 'list',
-            name: 'lightDark',
-            message: 'Light or dark theme?',
-            choices: ['light', 'dark'],
-            default: 'dark'
-        },
-        {
-            type: 'confirm',
-            name: 'kitchenSink',
-            message: 'Include the KitchenSink demo?',
-            default: false
-        },
-        {
             type: 'confirm',
             name: 'useCordova',
             message: 'Would you like to enable Cordova for this project?',
@@ -56,6 +43,51 @@ TopcoatTouchGenerator.prototype.askFor = function askFor() {
             message: 'Cordova platforms',
             choices: [{name: 'ios', checked: true}, {name: 'android', checked: true},
                 {name: 'wp8'}, {name: 'windows8'}, {name: 'amazon-fireos'}, {name: 'firefoxos'}, {name: 'blackberry10'}]
+        },
+        {
+            type: 'list',
+            name: 'lightDark',
+            message: 'Light or dark theme?',
+            choices: ['light', 'dark'],
+            default: 'light'
+        },
+        {
+            type: 'list',
+            name: 'jqueryZepto',
+            message: 'User jQuery or Zepto as Dom manipulation library?',
+            choices: ['jquery', 'zepto'],
+            defaults: 'jquery'
+        },
+        {
+            type: 'confirm',
+            name: 'includeHammer',
+            message: 'Include Hammer.js for gesture support?',
+            default: true
+        },
+        {
+            type: 'confirm',
+            name: 'includeFastClick',
+            message: 'Include fastclick.js to remove click delays?',
+            default: true
+        },
+        {
+            type: 'confirm',
+            name: 'includeIScroll',
+            message: 'Include IScroll.js for scrolling (required for KitchenSink demo)?',
+            default: true
+        },
+        {
+            type: 'list',
+            name: 'mvcOrSingleDocument',
+            message: 'MVC or Single Document?',
+            choices: ['mvc', 'single document'],
+            default: 'mvc'
+        },
+        {
+            type: 'confirm',
+            name: 'kitchenSink',
+            message: 'Include the KitchenSink demo?',
+            default: false
         }
     ];
 
@@ -66,8 +98,11 @@ TopcoatTouchGenerator.prototype.askFor = function askFor() {
         this.lightDark = props.lightDark;
         this.platforms = props.platforms;
         this.kitchenSink = props.kitchenSink;
-
-
+        this.jqueryZepto = props.jqueryZepto;
+        this.includeHammer = props.includeHammer;
+        this.includeIScroll = props.includeIScroll;
+        this.includeFastClick = props.includeFastClick;
+        this.mvc = props.mvcOrSingleDocument == 'mvc';
 
         cb();
     }.bind(this));
@@ -86,6 +121,21 @@ TopcoatTouchGenerator.prototype.app = function app() {
     this.template('_package.json', 'package.json');
     if (this.useCordova) {
         this.copy('_cordova.js', 'app/cordova.js');
+    }
+    if (this.mvc) {
+        if (this.kitchenSink) {
+            this.copy('waitingDialogExample.ejs', 'app/templates/waitingDialogExample.ejs');
+            this.copy('home.ejs', 'app/templates/home.ejs');
+            this.copy('help.ejs', 'app/templates/help.ejs');
+            this.copy('galleryExample.ejs', 'app/templates/galleryExample.ejs');
+            this.copy('formExample.ejs', 'app/templates/formExample.ejs');
+            this.copy('checkRadioExample.ejs', 'app/templates/checkRadioExample.ejs');
+            this.copy('carouselExample.ejs', 'app/templates/carouselExample.ejs');
+            this.copy('buttonExample.ejs', 'app/templates/buttonExample.ejs');
+            this.copy('about.ejs', 'app/templates/about.ejs');
+        } else {
+            this.copy('homeDefault.ejs', 'app/templates/home.ejs');
+        }
     }
 };
 
