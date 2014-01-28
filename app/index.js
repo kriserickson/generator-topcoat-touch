@@ -35,7 +35,7 @@ TopcoatTouchGenerator.prototype.askFor = function askFor() {
             default: true
         },
         {
-            when: function(response) {
+        when: function(response) {
                 return response.useCordova;
             },
             type: 'checkbox',
