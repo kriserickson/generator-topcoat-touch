@@ -3,10 +3,11 @@ generator-topcoat-touch
 
 Yeoman Generator for Topcoat Touch.  
 
-Creates either the Kitchen Sink demo or a bare-bones applications.  Allows using JQuery or Zepto for DOM manipulation and turning on and off optional libraries (iScroll, Fastclick, Hammer).  Example run:
+Creates either the Kitchen Sink demo or a bare-bones applications.  Allows using JQuery or Zepto for DOM manipulation and turning on and off optional libraries (iScroll, Fastclick, Hammer).  
+
+Example run:
 
 <pre>
-$npm install -g yo
 $npm install -g generator-topcoat-touch
 $yo topcoat-touch
 
