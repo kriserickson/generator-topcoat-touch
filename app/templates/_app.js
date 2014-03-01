@@ -1,13 +1,13 @@
 /**
  * Demo App for TopcoatTouch
  */
-(function() {
+$(document).ready(function() {
 
 <% if (kitchenSink) {
       if (mvc) { %>
 
 	// Create the topcoatTouch object
-    var tt = new TopcoatTouch({menu: [{id: 'help', name: 'Help'}, {id: 'about', name: 'About'}]});
+    var tt = new TopcoatTouch({menu: [{id: 'help', name: 'Help'}, {id: 'info', name: 'Info'}, {id: 'about', name: 'About'}]});
 
     tt.on(tt.EVENTS.MENU_ITEM_CLICKED, function(page, id) {
         if (id == 'help') {
@@ -18,12 +18,19 @@
     });
 
     tt.createController('home');
+
     tt.createController('about').addEvent('click', 'button', function() {
         tt.goBack();
     });
+
+    tt.createController('info').addEvent('click', 'button', function() {
+        tt.goBack();
+    });
+
     tt.createController('help').addEvent('click', 'button', function() {
         tt.goBack();
     });
+
     tt.createController('buttonExample', {
         postrender: function($page) {
             // Show a message when anyone clicks on button of the test form...
@@ -127,7 +134,7 @@
 %>
 
     // Create the topcoatTouch object
-    var tt = new TopcoatTouch({menu: [{id: 'help', name: 'Help'}, {id: 'about', name: 'About'}]});
+    var tt = new TopcoatTouch({menu: [{id: 'help', name: 'Help'}, {id: 'info', name: 'Info'},   {id: 'about', name: 'About'}]});
     // First page we go to home...  This could be done in code by setting the class to 'page page-center', but here is how to do it in code...
     tt.goTo('home');
 
@@ -136,12 +143,14 @@
     tt.on(tt.EVENTS.MENU_ITEM_CLICKED, function(page, id) {
         if (id == 'help') {
             tt.goTo('help', 'slidedown', true);
+        } else if (id == 'info') {
+            tt.goTo('info', 'flip', true);
         } else if (id == 'about') {
             tt.goTo('about', 'pop', true);
         }
     });
 
-    tt.on('click', 'button', 'help', function() {
+    tt.on('click', 'button', 'help about info', function() {
         tt.goBack();
     });
 
@@ -239,4 +248,4 @@
 
 <% } %>
 
-})();
+});
