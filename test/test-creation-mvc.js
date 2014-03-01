@@ -5,7 +5,7 @@ var path    = require('path');
 var helpers = require('yeoman-generator').test;
 
 
-describe('topcoat-touch generator', function () {
+describe('topcoat-touch generator mvc', function () {
     beforeEach(function (done) {
         helpers.testDirectory(path.join(__dirname, 'tempMvc'), function (err) {
             if (err) {

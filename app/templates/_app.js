@@ -4,7 +4,7 @@
 (function() {
 
 <% if (kitchenSink) {
-    if (mvc) { %>
+      if (mvc) { %>
 
 	// Create the topcoatTouch object
     var tt = new TopcoatTouch({menu: [{id: 'help', name: 'Help'}, {id: 'about', name: 'About'}]});
@@ -120,7 +120,11 @@
     }
 
 
-<% } else { %>
+<%
+    // End If MVC KitchenSink
+        } else {
+    // Start SingleDocument KitchenSink
+%>
 
     // Create the topcoatTouch object
     var tt = new TopcoatTouch({menu: [{id: 'help', name: 'Help'}, {id: 'about', name: 'About'}]});
@@ -223,9 +227,10 @@
 <%
         }
     } else {
+%>
     // Create the topcoatTouch object
     var tt = new TopcoatTouch();
-        if (mvc) { %>
+<%      if (mvc) { %>
     tt.createController('home');
 <%      } else { %>
     // First page we go to home...  This could be done in code by setting the class to 'page page-center', but here is how to do it in code...
