@@ -5,4 +5,4 @@ node_js:
 before_install:
   - currentfolder=${PWD##*/}
   - if [ "$currentfolder" != 'generator-topcoat-touch' ]; then cd .. && eval "mv $currentfolder generator-topcoat-touch" && cd generator-topcoat-touch; fi
-
+script: npm test
