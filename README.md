@@ -1,6 +1,8 @@
 generator-topcoat-touch
 =======================
 
+[![Build Status](https://travis-ci.org/kriserickson/generator-topcoat-touch.png?branch=master)](https://travis-ci.org/kriserickson/generator-topcoat-touch)
+
 Yeoman Generator for Topcoat Touch.  
 
 Creates either the Kitchen Sink demo or a bare-bones applications.  Allows using JQuery or Zepto for DOM manipulation and turning on and off optional libraries (iScroll, Fastclick, Hammer).  
