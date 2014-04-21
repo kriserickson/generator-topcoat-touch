@@ -2,18 +2,14 @@
 'use strict';
 
 var path    = require('path');
+var fs      = require('fs');
 var helpers = require('yeoman-generator').test;
+
 
 
 describe('topcoat-touch generator kitchen mvc', function () {
     beforeEach(function (done) {
         var dir = path.join(__dirname, 'tempKitchenMVC');
-        if (fs.existsSync(dir)) {
-            fs.readdirSync(dir).forEach(function(fileName) {
-                console.log('Deleting: ' + fileName);
-                fs.unlinkSync(fileName);
-            });
-        }
         helpers.testDirectory(dir, function (err) {
             if (err) {
                 return done(err);
