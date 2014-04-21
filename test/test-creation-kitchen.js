@@ -2,12 +2,20 @@
 'use strict';
 
 var path    = require('path');
+var fs      = require('fs');
 var helpers = require('yeoman-generator').test;
 
 
 describe('topcoat-touch generator kitchen simple', function () {
     beforeEach(function (done) {
-        helpers.testDirectory(path.join(__dirname, 'tempKitchen'), function (err) {
+        var dir = path.join(__dirname, 'tempKitchen');
+        if (fs.existsSync(dir)) {
+            fs.readdirSync(dir).forEach(function(fileName) {
+                console.log('Deleting: ' + fileName);
+                fs.unlinkSync(fileName);
+            });
+        }
+        helpers.testDirectory(dir, function (err) {
             if (err) {
                 return done(err);
             }
@@ -42,7 +50,8 @@ describe('topcoat-touch generator kitchen simple', function () {
             includeHammer: true,
             includeIScroll: true,
             includeFastClick: true,
-            mvcOrSingleDocument: 'single'
+            mvcOrSingleDocument: 'single',
+            testing: false
         });
 
         this.app.options['skip-install'] = true;

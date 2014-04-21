@@ -46,6 +46,7 @@ $yo topcoat-touch
 > mvc
   single document
 [?] Include the KitchenSink demo? (y/N)
+[?] Include testing framework? (Y/n)
    create app\index.html
    create app\js\app.js
    create app\css\app.css
@@ -55,6 +56,9 @@ $yo topcoat-touch
    create package.json
    create app\cordova.js
    create app\templates\home.ejs
+   create TestRunner.html
+   create test\testApp.js
+
 
 I'm all done. Running bower install & npm install for you to install the required dependencies. 
 If this fails, try running the command yourself.

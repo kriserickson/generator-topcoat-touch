@@ -14,3 +14,12 @@ results
 npm-debug.log
 node_modules
 temp
+/.idea
+/test/tempKitchen/.bowerrc
+/test/tempKitchen
+/test/tempKitchenMvc
+/test/tempMvc
+/test/tempSingle
+/test/tempTesting
+/test/tempZepto/.bowerrc
+/test/tempZepto

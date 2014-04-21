@@ -5,9 +5,9 @@ var path    = require('path');
 var helpers = require('yeoman-generator').test;
 
 
-describe('topcoat-touch generator single document', function () {
+describe('topcoat-touch generator testing', function () {
     beforeEach(function (done) {
-        var dir = path.join(__dirname, 'tempSingle');
+        var dir = path.join(__dirname, 'tempTesting');
         if (fs.existsSync(dir)) {
             fs.readdirSync(dir).forEach(function(fileName) {
                 console.log('Deleting: ' + fileName);
@@ -36,7 +36,9 @@ describe('topcoat-touch generator single document', function () {
             'Gruntfile.js',
             'app/index.html',
             'app/js/app.js',
-            'app/css/app.css'
+            'app/css/app.css',
+            'TestRunner.html',
+            'test/testApp.js'
         ];
 
 
@@ -50,7 +52,7 @@ describe('topcoat-touch generator single document', function () {
             includeIScroll: true,
             includeFastClick: true,
             mvcOrSingleDocument: 'single',
-            testing: false
+            testing: true
         });
 
         this.app.options['skip-install'] = true;

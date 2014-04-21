@@ -7,7 +7,14 @@ var helpers = require('yeoman-generator').test;
 
 describe('topcoat-touch generator mvc', function () {
     beforeEach(function (done) {
-        helpers.testDirectory(path.join(__dirname, 'tempMvc'), function (err) {
+        var dir = path.join(__dirname, 'tempMVC');
+        if (fs.existsSync(dir)) {
+            fs.readdirSync(dir).forEach(function(fileName) {
+                console.log('Deleting: ' + fileName);
+                fs.unlinkSync(fileName);
+            });
+        }
+        helpers.testDirectory(dir, function (err) {
             if (err) {
                 return done(err);
             }
@@ -43,7 +50,8 @@ describe('topcoat-touch generator mvc', function () {
             includeHammer: true,
             includeIScroll: true,
             includeFastClick: true,
-            mvcOrSingleDocument: 'mvc'
+            mvcOrSingleDocument: 'mvc',
+            testing: false
         });
 
         this.app.options['skip-install'] = true;

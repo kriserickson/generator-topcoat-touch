@@ -88,6 +88,12 @@ TopcoatTouchGenerator.prototype.askFor = function askFor() {
             name: 'kitchenSink',
             message: 'Include the KitchenSink demo?',
             default: false
+        },
+        {
+            type: 'confirm',
+            name: 'testing',
+            message: 'Include testing framework?',
+            default: true
         }
     ];
 
@@ -103,7 +109,7 @@ TopcoatTouchGenerator.prototype.askFor = function askFor() {
         this.includeIScroll = props.includeIScroll;
         this.includeFastClick = props.includeFastClick;
         this.mvc = props.mvcOrSingleDocument == 'mvc';
-
+        this.testing = props.testing;
         cb();
     }.bind(this));
 };
@@ -136,6 +142,11 @@ TopcoatTouchGenerator.prototype.app = function app() {
         } else {
             this.copy('homeDefault.ejs', 'app/templates/home.ejs');
         }
+    }
+    if (this.testing) {
+        this.copy('TestRunner.html', 'TestRunner.html');
+        this.mkdir('test');
+        this.copy('testApp.js', 'test/testApp.js');
     }
 };
 
