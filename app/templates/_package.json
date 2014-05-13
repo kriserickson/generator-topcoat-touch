@@ -15,7 +15,7 @@
 <% if (testing) { %>
     "mocha": "1.18.2",
     "chai": "1.9.1",
-    "mocha-phantomjs": "3.3.2"
+    "mocha-phantomjs": "3.3.2",
 <% } %>
     "grunt-http-server": "~0.0.4"
   }
