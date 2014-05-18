@@ -1,6 +1,6 @@
 {
   "name": "generator-topcoat-touch",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Topcoat Touch Generator for Yeoman",
   "keywords": [
     "yeoman-generator"
@@ -25,7 +25,8 @@
     "underscore.string": "~2.3.3"
   },
   "devDependencies": {
-    "mocha": "~1.14.0"
+    "mocha": "~1.14.0",
+    "rimraf": "2.2.8"
   },
   "peerDependencies": {
     "yo": ">=1.0.0"

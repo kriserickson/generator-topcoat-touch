@@ -3,21 +3,31 @@
 
 var path    = require('path');
 var helpers = require('yeoman-generator').test;
-
+var rimraf  = require('rimraf');
+var fs      = require('fs');
 
 describe('topcoat-touch generator single document', function () {
     beforeEach(function (done) {
-        var dir = path.join(__dirname, 'tempSingle');
-        helpers.testDirectory(dir, function (err) {
-            if (err) {
-                return done(err);
-            }
-
-            this.app = helpers.createGenerator('topcoat-touch:app', [
-                '../../app'
-            ]);
-            done();
-        }.bind(this));
+        var self = this;
+        var dir = path.join(__dirname, 'tempSimple');
+        function test() {
+            helpers.testDirectory(dir, function (err) {
+                if (err) {
+                    return done(err);
+                }
+                self.app = helpers.createGenerator('topcoat-touch:app', [
+                    '../../app'
+                ]);
+                done();
+            });
+        }
+        if (fs.existsSync(dir)) {
+            rimraf(dir, function() {
+                test();
+            });
+        } else {
+            test();
+        }
     });
 
     it('creates expected files', function (done) {

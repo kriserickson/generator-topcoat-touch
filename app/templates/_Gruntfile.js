@@ -72,8 +72,8 @@ module.exports = function (grunt) {
                     { dest: 'cordova/www/css/', cwd: 'dist', expand: true, src: '<%= projectNameSlug %>.min.css'},
                     { dest: 'cordova/www/js/', cwd: 'dist', expand: true, src: '<%= projectNameSlug %>.min.js'},
                     { dest: 'cordova/www/', cwd: 'app', expand: true, src: ['img/**']},
+                    { dest: 'cordova/www/', cwd: 'app', expand: true, src: ['templates/**']},
                     { dest: 'cordova/www/', cwd: 'app/libs/topcoat-touch', expand: true, src: ['img/**', 'font/**']}
-
                 ]
             },
             debugCordova: {
