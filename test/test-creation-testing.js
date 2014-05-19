@@ -33,20 +33,6 @@ describe('topcoat-touch generator testing', function () {
 
     it('creates expected files', function (done) {
 
-        var expected = [
-            // add files you expect to exist here.
-            '.bowerrc',
-            'package.json',
-            'bower.json',
-            'Gruntfile.js',
-            'app/index.html',
-            'app/js/app.js',
-            'app/css/app.css',
-            'TestRunner.html',
-            'test/testApp.js'
-        ];
-
-
         helpers.mockPrompt(this.app, {
             projectName: 'Test App',
             lightDark: 'light',
@@ -63,7 +49,8 @@ describe('topcoat-touch generator testing', function () {
         this.app.options['skip-install'] = true;
 
         this.app.run({}, function () {
-            helpers.assertFiles(expected);
+            helpers.assertFile('.bowerrc', 'package.json', 'bower.json', 'Gruntfile.js', 'app/index.html',
+                'app/js/app.js', 'app/css/app.css', 'TestRunner.html', 'test/testApp.js');
             done();
         });
     });

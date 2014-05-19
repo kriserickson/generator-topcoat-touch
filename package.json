@@ -1,6 +1,6 @@
 {
   "name": "generator-topcoat-touch",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Topcoat Touch Generator for Yeoman",
   "keywords": [
     "yeoman-generator"

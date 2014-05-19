@@ -17,6 +17,7 @@
     "chai": "1.9.1",
     "mocha-phantomjs": "3.3.2",
 <% } %>
+    "grunt-available-tasks": "~0.4.1",
     "grunt-http-server": "~0.0.4"
   }
 }
