@@ -6,10 +6,10 @@ var helpers = require('yeoman-generator').test;
 var rimraf  = require('rimraf');
 var fs      = require('fs');
 
-describe('topcoat-touch generator mvc', function () {
+describe('topcoat-touch generator cordova zepto', function () {
     beforeEach(function (done) {
         var self = this;
-        var dir = path.join(__dirname, 'tempMVC');
+        var dir = path.join(__dirname, 'tempCordovaZepto');
         function test() {
             helpers.testDirectory(dir, function (err) {
                 if (err) {
@@ -35,21 +35,22 @@ describe('topcoat-touch generator mvc', function () {
         helpers.mockPrompt(this.app, {
             projectName: 'Test App',
             lightDark: 'light',
+            platforms: ['ios', 'android'],
             kitchenSink: false,
-            useCordova: false,
-            jqueryZepto: 'jquery',
+            useCordova: true,
+            jqueryZepto: 'zepto',
             includeHammer: true,
             includeIScroll: true,
             includeFastClick: true,
-            mvcOrSingleDocument: 'mvc',
+            mvcOrSingleDocument: 'single',
             testing: false
         });
 
         this.app.options['skip-install'] = true;
 
         this.app.run({}, function () {
-            helpers.assertFile('.bowerrc', 'package.json', 'bower.json', 'Gruntfile.js', 'README.md', 'app/index.html',
-                'app/js/app.js', 'app/css/app.css', 'app/templates/home.ejs');
+            helpers.assertFile('.bowerrc', 'package.json', 'bower.json', 'README.md',
+                'Gruntfile.js', 'app/index.html', 'app/js/app.js', 'app/css/app.css');
             done();
         });
     });

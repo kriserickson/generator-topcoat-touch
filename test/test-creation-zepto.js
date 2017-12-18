@@ -48,7 +48,7 @@ describe('topcoat-touch generator zepto', function () {
         this.app.options['skip-install'] = true;
 
         this.app.run({}, function () {
-            helpers.assertFile('.bowerrc', 'package.json', 'bower.json',
+            helpers.assertFile('.bowerrc', 'package.json', 'bower.json', 'README.md',
                 'Gruntfile.js', 'app/index.html', 'app/js/app.js', 'app/css/app.css');
             done();
         });

@@ -48,7 +48,7 @@ describe('topcoat-touch generator single document', function () {
         this.app.options['skip-install'] = true;
 
         this.app.run({}, function () {
-            helpers.assertFile('.bowerrc', 'package.json', 'bower.json', 'Gruntfile.js', 'app/index.html',
+            helpers.assertFile('.bowerrc', 'package.json', 'bower.json', 'Gruntfile.js', 'README.md', 'app/index.html',
                 'app/js/app.js', 'app/css/app.css');
             done();
         });

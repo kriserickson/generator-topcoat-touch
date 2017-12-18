@@ -49,7 +49,7 @@ describe('topcoat-touch generator kitchen mvc', function () {
         this.app.options['skip-install'] = true;
 
         this.app.run({}, function () {
-            helpers.assertFile('.bowerrc', 'package.json', 'bower.json', 'Gruntfile.js', 'app/index.html', 'app/js/app.js',
+            helpers.assertFile('.bowerrc', 'package.json', 'bower.json', 'Gruntfile.js', 'README.md', 'app/index.html', 'app/js/app.js',
                 'app/css/app.css', 'app/templates/about.ejs', 'app/templates/buttonExample.ejs', 'app/templates/carouselExample.ejs',
                 'app/templates/checkRadioExample.ejs', 'app/templates/formExample.ejs', 'app/templates/galleryExample.ejs',
                 'app/templates/help.ejs', 'app/templates/home.ejs', 'app/templates/waitingDialogExample.ejs');

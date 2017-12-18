@@ -122,6 +122,7 @@ TopcoatTouchGenerator.prototype.app = function app() {
     this.mkdir('app/css');
     this.template('_app.css', 'app/css/app.css');
     this.template('_bower.json', 'bower.json');
+    this.template('_README.md', 'README.md');
     this.copy('bowerrc', '.bowerrc');
     this.template('_Gruntfile.js', 'Gruntfile.js');
     this.template('_package.json', 'package.json');

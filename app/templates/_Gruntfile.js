@@ -2,6 +2,7 @@ module.exports = function (grunt) {
     'use strict';
 
     grunt.loadNpmTasks('grunt-http-server');
+    grunt.loadNpmTasks('grunt-available-tasks');
 <% if (useCordova) { %>
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');
@@ -16,7 +17,11 @@ module.exports = function (grunt) {
         <% if (includeIScroll) { %>,'app/libs/topcoat-touch/js/iscroll.js' <% } %>
         <% if (includeFastClick) { %>,'app/libs/topcoat-touch/js/fastclick.js' <% } %>];
 
-    var libCss = ['app/libs/topcoat-touch/css/topcoat-touch.css', 'app/libs/topcoat-touch/css/topcoat-mobile-<%= lightDark %>.css'];
+    libJs = libJs.concat(grunt.file.expand(['app/js/*.js']));
+
+    var libCss = ['app/libs/topcoat-touch/css/topcoat-mobile-<%= lightDark %>.css', 'app/libs/topcoat-touch/css/topcoat-touch.css'];
+
+    libCss = libCss.concat(grunt.file.expand(['app/css/*.css']));
 
 <% } %>
 
@@ -44,11 +49,11 @@ module.exports = function (grunt) {
         },
         concat:{
             js:{
-                src: grunt.file.expand(libJs.concat(['app/js/*.js'])),
+                src: libJs,
                 dest:'dist/<%= projectNameSlug %>.combined.js'
             },
             css:{
-                src: grunt.file.expand(libCss.concat(['app/css/*.css'])),
+                src: libCss,
                 dest:'dist/<%= projectNameSlug %>.css'
             }
         },
@@ -83,11 +88,10 @@ module.exports = function (grunt) {
                     { dest: 'cordova/www/', cwd: 'app/libs/topcoat-touch', expand: true, src: ['img/**', 'font/**']}
                 ]
             },
-            debugCordova: {
+            'debug-cordova': {
                 files: [
                     { dest: 'cordova/www/', cwd: 'app/', expand: true,
-                        src: ['index.html', 'css/*.css', 'js/*.js', 'img/**', 'libs/topcoat-touch/img/**',
-                            'libs/topcoat-touch/font/**'].concat(libJs, libCss)}
+                        src: ['index.html', 'img/**', 'js/**', 'css/**', 'libs/topcoat-touch/img/**', 'libs/topcoat-touch/**']}
                 ]
             }
         },
@@ -123,42 +127,41 @@ module.exports = function (grunt) {
                 }
             }
         }
-<% } %>
-    , availabletasks: {
-        tasks: {
-            options: {
-                filter: 'include',
-                tasks: ['http-server'<% if (useCordova) { %>, 'cordova', 'debug-cordova', 'build', 'extension', 'test' <% } %>],
-                descriptions: {
-                    'http-server': 'Run an http-server on port 3000'<% if (useCordova) { %>,
-                    cordova: 'Build the cordova(phonegap) project.  This requires running cordova prepare or cordova build afterwards.',
-                    'debug-cordova': 'Build the cordova(phonegap) project, however do not minimize the code.  This requires running cordova prepare or cordova build afterwards.',
-                    build: 'Builds the cordova project, runs prepare first',
-                    prepare: 'Prepares the cordova project',
-                    emulate: 'Runs build and then emulates the project',
-                    run: 'Runs build and the runs the project on a device if attached'
-                    <% } %>
+<% } %>,
+        availabletasks: {
+            tasks: {
+                options: {
+                    filter: 'include',
+                    tasks: ['http-server'<% if (useCordova) { %>, 'cordova', 'debug-cordova', 'build', 'prepare', 'run', 'emulate' <% } %>],
+                    descriptions: {
+                        'http-server': 'Run an http-server on port 3000'<% if (useCordova) { %>,
+                        cordova: 'Build the cordova(phonegap) project.  This requires running cordova prepare or cordova build afterwards.',
+                        'debug-cordova': 'Build the cordova(phonegap) project, however do not minimize the code.  This requires running cordova prepare or cordova build afterwards.',
+                        build: 'Builds the cordova project, runs prepare first',
+                        prepare: 'Prepares the cordova project',
+                        emulate: 'Runs build and then emulates the project',
+                        run: 'Runs build and the runs the project on a device if attached'
+                        <% } %>
+                    }
                 }
             }
         }
-}
-
-});
+    });
 
 <% if (useCordova) { %>
-    grunt.registerTask('debug-build', ['debugCordova', 'cordovacli:build']);
+    grunt.registerTask('debug-build', ['debug-cordova', 'cordovacli:build']);
     grunt.registerTask('build', ['cordova', 'cordovacli:build']);
     grunt.registerTask('prepare', ['cordova', 'cordovacli:prepare']);
     grunt.registerTask('debug-prepare', ['cordova', 'cordovacli:prepare']);
     grunt.registerTask('cordova', ['clean:dist', 'clean:cordova', 'concat', 'uglify', 'cssmin', 'transform_html', 'copy:cordova']);
-    grunt.registerTask('debug-cordova', ['clean:dist', 'clean:cordova', 'copy:debugCordova']);
-    grunt.registerTask('cordova-debug', ['debugCordova']);
+    grunt.registerTask('debug-cordova', ['clean:dist', 'clean:cordova', 'copy:debug-cordova']);
+    grunt.registerTask('cordova-debug', ['debug-cordova']);
     grunt.registerTask('emulate', ['build', 'cordovacli:emulate']);
-    grunt.registerTask('emulate', ['run', 'cordovacli:run']);
+    grunt.registerTask('run', ['run', 'cordovacli:run']);
 <% } %>
 
     // Default task.
-    grunt.registerTask('default', ['availableTasks']);
-
+    grunt.registerTask('tasks', ['availabletasks']);
+    grunt.registerTask('default', ['tasks']);
 
 };
